@@ -1,4 +1,4 @@
-package com.example.bookshop
+package com.hamelin_menoret.bookshop
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
