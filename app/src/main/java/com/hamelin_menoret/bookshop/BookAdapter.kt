@@ -10,12 +10,13 @@ class BookAdapter(val books: Array<Book>): Adapter<BookMiniature>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookMiniature {
         val book = LayoutInflater.from(parent.context).inflate(R.layout.book_miniature, parent, false)
-        return BookMiniature(book)
+        return BookMiniature(book, null)
     }
 
     override fun onBindViewHolder(book: BookMiniature, pos: Int) {
         Picasso.get().load(books[pos].cover).into(book.image)
         book.title.text = books[pos].title
+        book.book = books[pos]
     }
 
     override fun getItemCount(): Int {
