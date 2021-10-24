@@ -8,7 +8,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Bookshop">
+        android:theme="@style/Theme.Bookshop"
+        android:name=".Global">
         <activity
             android:name="com.hamelin_menoret.bookshop.MainActivity"
             android:exported="true">
