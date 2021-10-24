@@ -2,9 +2,8 @@ package com.hamelin_menoret.bookshop
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
-import androidx.appcompat.widget.Toolbar
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.hamelin_menoret.bookshop.api.ApiClient
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
@@ -15,23 +14,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         CoroutineScope(IO).launch {
-            try {
-                val response = ApiClient.apiService.getBooks();
-                if (response.isSuccessful && response.body() != null) {
+            val response = ApiClient.apiService.getBooks();
+            if (response.isSuccessful && response.body() != null) {
+                runOnUiThread {
                     val content = response.body()
-                } else {
-                    Toast.makeText(
-                        this@MainActivity,
-                        "Error Occurred: ${response.message()}",
-                        Toast.LENGTH_LONG
-                    ).show()
+                    val bookList: RecyclerView = findViewById(R.id.listBooks)
+                    val adapter = BookAdapter(content!!)
+                    bookList.adapter = adapter
+                    bookList.layoutManager = GridLayoutManager(this@MainActivity, 1)
                 }
-            } catch (e: Exception) {
-                Toast.makeText(
-                    this@MainActivity,
-                    "Error Occurred: ${e.message}",
-                    Toast.LENGTH_LONG
-                ).show()
             }
         }
     }
